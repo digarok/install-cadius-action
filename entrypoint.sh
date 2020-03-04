@@ -13,6 +13,11 @@ if [ "$INPUT_INCLUDE_PRODOS" = "true" ]; then
     curl -k -L https://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk -o ProDOS_2_4_2.dsk
     #git clone https://github.com/digarok/dsk2po.git
     curl -k -L https://raw.githubusercontent.com/digarok/dsk2po/master/dsk2po.py -o dsk2po.py
+    which python
+    which python3
+    ls /usr/bin
+    echo "-----"
+    ls /bin
     /usr/bin/python3 dsk2po.py ProDOS_2_4_2.dsk
     cadius extractfile ProDOS_2_4_2.po /PRODOS.2.4.2/PRODOS  .
     cadius extractfile ProDOS_2_4_2.po /PRODOS.2.4.2/BASIC.SYSTEM  .
