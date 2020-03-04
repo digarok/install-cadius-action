@@ -7,7 +7,8 @@ RUN apt-get update
 
 # Install packages
 #RUN apt-get -yq install rsync openssh-client
-RUN apt-get -yq install unzip curl
+RUN apt-get -yq install unzip curl python3
+
 
 
 # Label
