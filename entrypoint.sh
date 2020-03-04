@@ -8,7 +8,7 @@ mv cadius /usr/bin
 
 cadius createvolume $INPUT_VOLUME_PATH $INPUT_VOLUME_NAME $INPUT_VOLUME_SIZE
 
-if [ "$INPUT_INCLUDE_PRODOS" == true ]; then
+if [ "$INPUT_INCLUDE_PRODOS" = "true" ]; then
     echo "Grabbing ProDOS 2.4.2"
     curl -L https://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk ProDOS_2_4_2.dsk
     git clone https://github.com/digarok/dsk2po.git
