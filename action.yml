@@ -1,0 +1,10 @@
+name: 'cadius-action'
+description: 'Github Action to set up Cadius for ProDOS disk image manipulation'
+author: 'Dagen Brock'
+inputs:
+  includeProdos:              # change this
+    description: 'Download Prodos 2.4.2 files to allow you to create a bootable disk.'
+    default: 'true'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
