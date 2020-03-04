@@ -9,6 +9,7 @@ mv cadius /usr/bin
 cadius createvolume $INPUT_VOLUME_PATH $INPUT_VOLUME_NAME $INPUT_VOLUME_SIZE
 
 if [ "$INPUT_INCLUDE_PRODOS" = "true" ]; then
+    apt-get install -y python3
     echo "Grabbing ProDOS 2.4.2"
     curl -k -L https://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk -o ProDOS_2_4_2.dsk
     #git clone https://github.com/digarok/dsk2po.git
