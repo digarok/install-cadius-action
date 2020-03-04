@@ -13,6 +13,7 @@ if [ "$INPUT_INCLUDE_PRODOS" = "true" ]; then
     curl -k -L https://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk -o ProDOS_2_4_2.dsk
     #git clone https://github.com/digarok/dsk2po.git
     curl -k -L https://raw.githubusercontent.com/digarok/dsk2po/master/dsk2po.py -o dsk2po.py
+    echo "WHICH"
     which python
     which python3
     ls /usr/bin
