@@ -1,4 +1,4 @@
-name: 'cadius-action'
+name: 'install-cadius-action'
 description: 'Github Action to set up Cadius for ProDOS disk image manipulation'
 author: 'Dagen Brock'
 inputs:
@@ -8,3 +8,6 @@ inputs:
 runs:
   using: 'node12'
   main: 'dist/index.js'
+branding:
+  icon: 'save'
+  color: 'blue'

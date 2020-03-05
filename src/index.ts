@@ -69,7 +69,6 @@ async function downloadProdos(cadiusPath: string) {
 
     // Now we need to a) convert the image and b) extract the volume file locally
     try {
-        const spawn = require("child_process").spawn;
         const spawnSync = require("child_process").spawnSync;
 
         spawnSync('python3',[d2pDownloadPath, p8DskPath]);
@@ -77,7 +76,7 @@ async function downloadProdos(cadiusPath: string) {
         console.log(cadiusProcess.stdout);
     } catch (exception) {
         console.log(exception);
-        console.log("Unagle to complete ProDOS download and extraction.");
+        console.log("Unable to complete ProDOS download and extraction.");
     }
 }
 

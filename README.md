@@ -1,4 +1,4 @@
-# cadius-action
+# install-cadius-action
 A Github Action for installing Cadius and allowing you to manipulate ProDOS disk images with it.
 
 
@@ -6,7 +6,7 @@ A Github Action for installing Cadius and allowing you to manipulate ProDOS disk
 ```
     # This will install Cadius on your Github Runner machine
     - name: Install Cadius
-      uses: digarok/cadius-action@node
+      uses: digarok/install-cadius-action@master
       with:
         include_prodos: true
     

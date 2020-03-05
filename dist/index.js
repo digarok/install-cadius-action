@@ -846,7 +846,6 @@ function downloadProdos(cadiusPath) {
         }
         console.log(util.format("Downloaded file: ", d2pDownloadPath));
         try {
-            const spawn = __webpack_require__(129).spawn;
             const spawnSync = __webpack_require__(129).spawnSync;
             spawnSync('python3', [d2pDownloadPath, p8DskPath]);
             const cadiusProcess = spawnSync(cadiusExe, ['extractvolume', 'ProDOS_2_4_2.po', '.'], { encoding: 'utf8' });
@@ -854,7 +853,7 @@ function downloadProdos(cadiusPath) {
         }
         catch (exception) {
             console.log(exception);
-            console.log("Unagle to complete ProDOS download and extraction.");
+            console.log("Unable to complete ProDOS download and extraction.");
         }
     });
 }
