@@ -1,5 +1,5 @@
 # install-cadius-action
-A Github Action for installing Cadius and allowing you to manipulate ProDOS disk images with it.
+A Github Action for installing Cadius and allowing you to manipulate ProDOS disk images in your workflows.
 
 
 # Example usage
