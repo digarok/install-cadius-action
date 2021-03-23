@@ -1,3 +1,5 @@
+![latest workflow](https://github.com/digarok/install-cadius-action/actions/workflows/main.yml/badge.svg)
+
 # install-cadius-action
 A Github Action for installing Cadius and allowing you to manipulate ProDOS disk images in your workflows.
 

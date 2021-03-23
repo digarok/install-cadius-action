@@ -1,11 +1,12 @@
 {
   "name": "install-cadius-action",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "pack": "ncc build dist/index.js"
+    "package": "ncc build dist/index.js",
+    "all": "npm run build && npm run package"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
@@ -17,5 +18,16 @@
     "@types/node": "^12.12.38",
     "@zeit/ncc": "^0.20.5",
     "typescript": "^3.6.4"
-  }
+  },
+  "description": "A Github Action for installing Cadius and allowing you to manipulate ProDOS disk images in your workflows.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digarok/install-cadius-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/digarok/install-cadius-action/issues"
+  },
+  "homepage": "https://github.com/digarok/install-cadius-action#readme"
 }
