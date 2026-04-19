@@ -2,7 +2,16 @@ name: 'install-cadius-action'
 description: 'Github Action to set up Cadius for ProDOS disk image manipulation'
 author: 'Dagen Brock'
 inputs:
-  include_prodos: 
+  version:
+    description: 'Cadius release version/tag to install from the selected source.'
+    required: false
+  source:
+    description: 'Which Cadius distribution to install: "digarok" (default) or "mach-kernel".'
+    default: 'digarok'
+  url:
+    description: 'Optional direct URL to a Cadius zip archive or raw binary. Overrides source/version when set.'
+    required: false
+  include_prodos:
     description: 'Download Prodos 2.4.2 files to allow you to create a bootable disk.'
     default: 'true'
 runs:
