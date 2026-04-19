@@ -12,7 +12,7 @@ inputs:
     description: 'Optional direct URL to a Cadius zip archive or raw binary. Overrides source/version when set.'
     required: false
   include_prodos:
-    description: 'Download Prodos 2.4.2 files to allow you to create a bootable disk.'
+    description: 'Download Prodos 2.4.3 files to allow you to create a bootable disk.'
     default: 'true'
 runs:
   using: 'node20'
