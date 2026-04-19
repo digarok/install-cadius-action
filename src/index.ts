@@ -137,7 +137,7 @@ function parseSource(value: string): Source {
 async function run() {
     let version = core.getInput('version');
     if (!version) {
-        version = '0.0.0';  // default
+        version = '0.0.2';  // default
     }
     const source = parseSource(core.getInput('source'));
     const customUrl = (core.getInput('url') || '').trim();
