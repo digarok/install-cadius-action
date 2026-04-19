@@ -1064,14 +1064,14 @@ var require_util = __commonJS({
         }
         const port = url.port != null ? url.port : url.protocol === "https:" ? 443 : 80;
         let origin = url.origin != null ? url.origin : `${url.protocol || ""}//${url.hostname || ""}:${port}`;
-        let path6 = url.path != null ? url.path : `${url.pathname || ""}${url.search || ""}`;
+        let path7 = url.path != null ? url.path : `${url.pathname || ""}${url.search || ""}`;
         if (origin[origin.length - 1] === "/") {
           origin = origin.slice(0, origin.length - 1);
         }
-        if (path6 && path6[0] !== "/") {
-          path6 = `/${path6}`;
+        if (path7 && path7[0] !== "/") {
+          path7 = `/${path7}`;
         }
-        return new URL(`${origin}${path6}`);
+        return new URL(`${origin}${path7}`);
       }
       if (!isHttpOrHttpsPrefixed(url.origin || url.protocol)) {
         throw new InvalidArgumentError("Invalid URL protocol: the URL must start with `http:` or `https:`.");
@@ -1522,39 +1522,39 @@ var require_diagnostics = __commonJS({
       });
       diagnosticsChannel.channel("undici:client:sendHeaders").subscribe((evt) => {
         const {
-          request: { method, path: path6, origin }
+          request: { method, path: path7, origin }
         } = evt;
-        debuglog("sending request to %s %s/%s", method, origin, path6);
+        debuglog("sending request to %s %s/%s", method, origin, path7);
       });
       diagnosticsChannel.channel("undici:request:headers").subscribe((evt) => {
         const {
-          request: { method, path: path6, origin },
+          request: { method, path: path7, origin },
           response: { statusCode }
         } = evt;
         debuglog(
           "received response to %s %s/%s - HTTP %d",
           method,
           origin,
-          path6,
+          path7,
           statusCode
         );
       });
       diagnosticsChannel.channel("undici:request:trailers").subscribe((evt) => {
         const {
-          request: { method, path: path6, origin }
+          request: { method, path: path7, origin }
         } = evt;
-        debuglog("trailers received from %s %s/%s", method, origin, path6);
+        debuglog("trailers received from %s %s/%s", method, origin, path7);
       });
       diagnosticsChannel.channel("undici:request:error").subscribe((evt) => {
         const {
-          request: { method, path: path6, origin },
+          request: { method, path: path7, origin },
           error: error2
         } = evt;
         debuglog(
           "request to %s %s/%s errored - %s",
           method,
           origin,
-          path6,
+          path7,
           error2.message
         );
       });
@@ -1603,9 +1603,9 @@ var require_diagnostics = __commonJS({
         });
         diagnosticsChannel.channel("undici:client:sendHeaders").subscribe((evt) => {
           const {
-            request: { method, path: path6, origin }
+            request: { method, path: path7, origin }
           } = evt;
-          debuglog("sending request to %s %s/%s", method, origin, path6);
+          debuglog("sending request to %s %s/%s", method, origin, path7);
         });
       }
       diagnosticsChannel.channel("undici:websocket:open").subscribe((evt) => {
@@ -1668,7 +1668,7 @@ var require_request = __commonJS({
     var kHandler = /* @__PURE__ */ Symbol("handler");
     var Request = class {
       constructor(origin, {
-        path: path6,
+        path: path7,
         method,
         body,
         headers,
@@ -1683,11 +1683,11 @@ var require_request = __commonJS({
         expectContinue,
         servername
       }, handler) {
-        if (typeof path6 !== "string") {
+        if (typeof path7 !== "string") {
           throw new InvalidArgumentError("path must be a string");
-        } else if (path6[0] !== "/" && !(path6.startsWith("http://") || path6.startsWith("https://")) && method !== "CONNECT") {
+        } else if (path7[0] !== "/" && !(path7.startsWith("http://") || path7.startsWith("https://")) && method !== "CONNECT") {
           throw new InvalidArgumentError("path must be an absolute URL or start with a slash");
-        } else if (invalidPathRegex.test(path6)) {
+        } else if (invalidPathRegex.test(path7)) {
           throw new InvalidArgumentError("invalid request path");
         }
         if (typeof method !== "string") {
@@ -1753,7 +1753,7 @@ var require_request = __commonJS({
         this.completed = false;
         this.aborted = false;
         this.upgrade = upgrade || null;
-        this.path = query ? buildURL(path6, query) : path6;
+        this.path = query ? buildURL(path7, query) : path7;
         this.origin = origin;
         this.idempotent = idempotent == null ? method === "HEAD" || method === "GET" : idempotent;
         this.blocking = blocking == null ? false : blocking;
@@ -6272,7 +6272,7 @@ var require_client_h1 = __commonJS({
       return method !== "GET" && method !== "HEAD" && method !== "OPTIONS" && method !== "TRACE" && method !== "CONNECT";
     }
     function writeH1(client, request) {
-      const { method, path: path6, host, upgrade, blocking, reset } = request;
+      const { method, path: path7, host, upgrade, blocking, reset } = request;
       let { body, headers, contentLength } = request;
       const expectsPayload = method === "PUT" || method === "POST" || method === "PATCH" || method === "QUERY" || method === "PROPFIND" || method === "PROPPATCH";
       if (util3.isFormDataLike(body)) {
@@ -6338,7 +6338,7 @@ var require_client_h1 = __commonJS({
       if (blocking) {
         socket[kBlocking] = true;
       }
-      let header = `${method} ${path6} HTTP/1.1\r
+      let header = `${method} ${path7} HTTP/1.1\r
 `;
       if (typeof host === "string") {
         header += `host: ${host}\r
@@ -6864,7 +6864,7 @@ var require_client_h2 = __commonJS({
     }
     function writeH2(client, request) {
       const session = client[kHTTP2Session];
-      const { method, path: path6, host, upgrade, expectContinue, signal, headers: reqHeaders } = request;
+      const { method, path: path7, host, upgrade, expectContinue, signal, headers: reqHeaders } = request;
       let { body } = request;
       if (upgrade) {
         util3.errorRequest(client, request, new Error("Upgrade not supported for H2"));
@@ -6931,7 +6931,7 @@ var require_client_h2 = __commonJS({
         });
         return true;
       }
-      headers[HTTP2_HEADER_PATH] = path6;
+      headers[HTTP2_HEADER_PATH] = path7;
       headers[HTTP2_HEADER_SCHEME] = "https";
       const expectsPayload = method === "PUT" || method === "POST" || method === "PATCH";
       if (body && typeof body.read === "function") {
@@ -7284,9 +7284,9 @@ var require_redirect_handler = __commonJS({
           return this.handler.onHeaders(statusCode, headers, resume, statusText);
         }
         const { origin, pathname, search } = util3.parseURL(new URL(this.location, this.opts.origin && new URL(this.opts.path, this.opts.origin)));
-        const path6 = search ? `${pathname}${search}` : pathname;
+        const path7 = search ? `${pathname}${search}` : pathname;
         this.opts.headers = cleanRequestHeaders(this.opts.headers, statusCode === 303, this.opts.origin !== origin);
-        this.opts.path = path6;
+        this.opts.path = path7;
         this.opts.origin = origin;
         this.opts.maxRedirections = 0;
         this.opts.query = null;
@@ -8520,10 +8520,10 @@ var require_proxy_agent = __commonJS({
         };
         const {
           origin,
-          path: path6 = "/",
+          path: path7 = "/",
           headers = {}
         } = opts;
-        opts.path = origin + path6;
+        opts.path = origin + path7;
         if (!("host" in headers) && !("Host" in headers)) {
           const { host } = new URL2(origin);
           headers.host = host;
@@ -10444,20 +10444,20 @@ var require_mock_utils = __commonJS({
       }
       return true;
     }
-    function safeUrl(path6) {
-      if (typeof path6 !== "string") {
-        return path6;
+    function safeUrl(path7) {
+      if (typeof path7 !== "string") {
+        return path7;
       }
-      const pathSegments = path6.split("?");
+      const pathSegments = path7.split("?");
       if (pathSegments.length !== 2) {
-        return path6;
+        return path7;
       }
       const qp = new URLSearchParams(pathSegments.pop());
       qp.sort();
       return [...pathSegments, qp.toString()].join("?");
     }
-    function matchKey(mockDispatch2, { path: path6, method, body, headers }) {
-      const pathMatch = matchValue(mockDispatch2.path, path6);
+    function matchKey(mockDispatch2, { path: path7, method, body, headers }) {
+      const pathMatch = matchValue(mockDispatch2.path, path7);
       const methodMatch = matchValue(mockDispatch2.method, method);
       const bodyMatch = typeof mockDispatch2.body !== "undefined" ? matchValue(mockDispatch2.body, body) : true;
       const headersMatch = matchHeaders(mockDispatch2, headers);
@@ -10479,7 +10479,7 @@ var require_mock_utils = __commonJS({
     function getMockDispatch(mockDispatches, key) {
       const basePath = key.query ? buildURL(key.path, key.query) : key.path;
       const resolvedPath = typeof basePath === "string" ? safeUrl(basePath) : basePath;
-      let matchedMockDispatches = mockDispatches.filter(({ consumed }) => !consumed).filter(({ path: path6 }) => matchValue(safeUrl(path6), resolvedPath));
+      let matchedMockDispatches = mockDispatches.filter(({ consumed }) => !consumed).filter(({ path: path7 }) => matchValue(safeUrl(path7), resolvedPath));
       if (matchedMockDispatches.length === 0) {
         throw new MockNotMatchedError(`Mock dispatch not matched for path '${resolvedPath}'`);
       }
@@ -10517,9 +10517,9 @@ var require_mock_utils = __commonJS({
       }
     }
     function buildKey(opts) {
-      const { path: path6, method, body, headers, query } = opts;
+      const { path: path7, method, body, headers, query } = opts;
       return {
-        path: path6,
+        path: path7,
         method,
         body,
         headers,
@@ -10982,10 +10982,10 @@ var require_pending_interceptors_formatter = __commonJS({
       }
       format(pendingInterceptors) {
         const withPrettyHeaders = pendingInterceptors.map(
-          ({ method, path: path6, data: { statusCode }, persist, times, timesInvoked, origin }) => ({
+          ({ method, path: path7, data: { statusCode }, persist, times, timesInvoked, origin }) => ({
             Method: method,
             Origin: origin,
-            Path: path6,
+            Path: path7,
             "Status code": statusCode,
             Persistent: persist ? PERSISTENT : NOT_PERSISTENT,
             Invocations: timesInvoked,
@@ -15866,9 +15866,9 @@ var require_util6 = __commonJS({
         }
       }
     }
-    function validateCookiePath(path6) {
-      for (let i = 0; i < path6.length; ++i) {
-        const code = path6.charCodeAt(i);
+    function validateCookiePath(path7) {
+      for (let i = 0; i < path7.length; ++i) {
+        const code = path7.charCodeAt(i);
         if (code < 32 || // exclude CTLs (0-31)
         code === 127 || // DEL
         code === 59) {
@@ -18508,11 +18508,11 @@ var require_undici = __commonJS({
           if (typeof opts.path !== "string") {
             throw new InvalidArgumentError("invalid opts.path");
           }
-          let path6 = opts.path;
+          let path7 = opts.path;
           if (!opts.path.startsWith("/")) {
-            path6 = `/${path6}`;
+            path7 = `/${path7}`;
           }
-          url = new URL(util3.parseOrigin(url).origin + path6);
+          url = new URL(util3.parseOrigin(url).origin + path7);
         } else {
           if (!opts) {
             opts = typeof url === "object" ? url : {};
@@ -20515,6 +20515,7 @@ var require_semver2 = __commonJS({
 
 // src/index.ts
 var os7 = __toESM(require("os"));
+var path6 = __toESM(require("path"));
 var util2 = __toESM(require("util"));
 var fs4 = __toESM(require("fs"));
 
@@ -22864,7 +22865,21 @@ function _getGlobal(key, defaultValue) {
 }
 
 // src/index.ts
-function getDownloadURL(version) {
+function binaryName() {
+  return os7.type() === "Windows_NT" ? "cadius.exe" : "cadius";
+}
+function getDownloadURL(version, source) {
+  if (source === "mach-kernel") {
+    switch (os7.type()) {
+      case "Linux":
+        return util2.format("https://github.com/mach-kernel/cadius/releases/download/%s/cadius-linux", version);
+      case "Darwin":
+        return util2.format("https://github.com/mach-kernel/cadius/releases/download/%s/cadius-darwin", version);
+      case "Windows_NT":
+      default:
+        return util2.format("https://github.com/mach-kernel/cadius/releases/download/%s/cadius.exe", version);
+    }
+  }
   switch (os7.type()) {
     case "Linux":
       return util2.format("https://github.com/digarok/cadius/releases/download/%s/cadius-ubuntu-latest-%s.zip", version, version);
@@ -22875,27 +22890,50 @@ function getDownloadURL(version) {
       return util2.format("https://github.com/digarok/cadius/releases/download/%s/cadius-windows-latest-%s.zip", version, version);
   }
 }
-async function downloadCadius(version) {
-  let cachedToolpath = find("cadius", version);
+function normalizeWindowsBinary(dir) {
+  if (os7.type() !== "Windows_NT") return;
+  const lower = path6.join(dir, "cadius.exe");
+  if (fs4.existsSync(lower)) return;
+  const capital = path6.join(dir, "Cadius.exe");
+  if (fs4.existsSync(capital)) {
+    fs4.copyFileSync(capital, lower);
+  }
+}
+async function stageDownload(downloadUrl, version) {
+  let downloadPath;
+  try {
+    downloadPath = await downloadTool(downloadUrl);
+  } catch (exception) {
+    console.log(exception);
+    throw new Error(util2.format("Failed to download Cadius from location %s", downloadUrl));
+  }
+  if (downloadUrl.toLowerCase().endsWith(".zip")) {
+    const extracted = await extractZip(downloadPath);
+    normalizeWindowsBinary(extracted);
+    return extracted;
+  }
+  const stagedDir = path6.join(path6.dirname(downloadPath), util2.format("cadius-stage-%s", version));
+  fs4.mkdirSync(stagedDir, { recursive: true });
+  const target = path6.join(stagedDir, binaryName());
+  fs4.renameSync(downloadPath, target);
+  if (os7.type() !== "Windows_NT") {
+    fs4.chmodSync(target, 493);
+  }
+  return stagedDir;
+}
+async function downloadCadius(version, source, customUrl) {
+  const cacheVersion = customUrl ? util2.format("custom-%s", version) : util2.format("%s-%s", source, version);
+  let cachedToolpath = find("cadius", cacheVersion);
   if (!cachedToolpath) {
-    let downloadPath;
-    try {
-      downloadPath = await downloadTool(getDownloadURL(version));
-    } catch (exception) {
-      console.log(exception);
-      throw new Error(util2.format("Failed to download Cadius from location ", getDownloadURL(version)));
-    }
-    const extractedPath = await extractZip(downloadPath);
-    cachedToolpath = await cacheDir(extractedPath, "cadius", version);
+    const downloadUrl = customUrl || getDownloadURL(version, source);
+    const staged = await stageDownload(downloadUrl, version);
+    cachedToolpath = await cacheDir(staged, "cadius", cacheVersion);
   }
   addPath(cachedToolpath);
   return cachedToolpath;
 }
 async function downloadProdos(cadiusPath) {
-  let cadiusExe = util2.format("%s/cadius", cadiusPath);
-  if (os7.type() == "Windows_NT") {
-    cadiusExe = util2.format("%s/Cadius.exe", cadiusPath);
-  }
+  const cadiusExe = path6.join(cadiusPath, binaryName());
   let downloadP8URL = "http://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk";
   let downloadD2PURL = "https://raw.githubusercontent.com/digarok/dsk2po/master/dsk2po.py";
   let p8DownloadPath;
@@ -22926,20 +22964,30 @@ async function downloadProdos(cadiusPath) {
     console.log("Unable to complete ProDOS download and extraction.");
   }
 }
+function parseSource(value) {
+  const normalized = (value || "").trim().toLowerCase();
+  if (normalized === "" || normalized === "digarok") return "digarok";
+  if (normalized === "mach-kernel") return "mach-kernel";
+  throw new Error(util2.format("Unsupported source '%s'. Expected 'digarok' or 'mach-kernel'.", value));
+}
 async function run() {
   let version = getInput("version");
   if (!version) {
-    version = "0.0.0";
+    version = "v0.0.2";
   }
+  const source = parseSource(getInput("source"));
+  const customUrl = (getInput("url") || "").trim();
   let includeProdos = false;
   let inputIncludeProdos = getInput("include_prodos");
   if (inputIncludeProdos.toLowerCase() == "true" || inputIncludeProdos == "") {
     includeProdos = true;
   }
   console.log(`INPUTS - version '${version}'`);
+  console.log(`INPUTS - source '${source}'`);
+  console.log(`INPUTS - url '${customUrl}'`);
   console.log(`INPUTS - includeProdos '${includeProdos}'`);
-  let cadiusPath = await downloadCadius(version);
-  console.log(`Cadius version: '${version}' has been downloaded and added to path`);
+  let cadiusPath = await downloadCadius(version, source, customUrl);
+  console.log(`Cadius has been downloaded and added to path (${cadiusPath})`);
   if (includeProdos) {
     await downloadProdos(cadiusPath);
     console.log(`ProDOS download and extraction completed`);

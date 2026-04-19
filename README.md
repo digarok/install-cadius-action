@@ -27,7 +27,35 @@ This compiles `index.ts` with TypeScript and bundles the output with `ncc` into 
 
 # Arguments/Inputs
 
-This action has one input: `include_prodos`.  It defaults to true, it will download the latest release of ProDOS (2.4.2) and extract all of the files to a directory called `PRODOS.2.4.2`.   This allows you to use those files, if needed, in subsequent steps.  So you can create a bootable disk or even add `BASIC.SYSTEM` to launch into AppleSoft BASIC.  If you don't need any of the ProDOS files, you can skip this by setting it to false and save a second or two. 
+| Input | Default | Description |
+| --- | --- | --- |
+| `version` | _(none)_ | Release tag of Cadius to install from the selected `source`. |
+| `source` | `digarok` | Which Cadius distribution to install. Accepts `digarok` (this fork) or `mach-kernel`. |
+| `url` | _(none)_ | Optional direct URL to a Cadius `.zip` archive or raw binary. Overrides `source`/`version` when set. |
+| `include_prodos` | `true` | Also download and extract ProDOS 2.4.2 so you can assemble a bootable disk. |
+
+`include_prodos` defaults to true and will download the latest release of ProDOS (2.4.2) and extract all of the files to a directory called `PRODOS.2.4.2`. This allows you to use those files, if needed, in subsequent steps — so you can create a bootable disk or even add `BASIC.SYSTEM` to launch into AppleSoft BASIC. If you don't need any of the ProDOS files, you can skip this by setting it to false and save a second or two.
+
+## Choosing an alternate Cadius build
+
+```yaml
+    - name: Install Cadius (mach-kernel fork)
+      uses: digarok/install-cadius-action@master
+      with:
+        source: mach-kernel
+        version: v1.1.0
+```
+
+## Installing from a custom URL
+
+```yaml
+    - name: Install Cadius from a custom release
+      uses: digarok/install-cadius-action@master
+      with:
+        url: https://example.com/builds/cadius-linux-custom.zip
+```
+
+The `url` input accepts either a `.zip` archive (it will be extracted) or a raw binary (it will be staged as `cadius` / `cadius.exe`).
 
 # Usage Recommendations
 
