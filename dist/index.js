@@ -22934,30 +22934,20 @@ async function downloadCadius(version, source, customUrl) {
 }
 async function downloadProdos(cadiusPath) {
   const cadiusExe = path6.join(cadiusPath, binaryName());
-  let downloadP8URL = "http://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk";
-  let downloadD2PURL = "https://raw.githubusercontent.com/digarok/dsk2po/master/dsk2po.py";
+  const downloadP8URL = "https://github.com/ProDOS-8/ProDOS8-Releases/releases/download/2.4.3/ProDOS_2_4_3.po";
+  const p8PoPath = "./ProDOS_2_4_3.po";
   let p8DownloadPath;
-  let d2pDownloadPath;
   try {
     p8DownloadPath = await downloadTool(downloadP8URL);
   } catch (exception) {
     console.log(exception);
-    throw new Error(util2.format("Failed to download ProDOS from location ", downloadP8URL));
+    throw new Error(util2.format("Failed to download ProDOS from location %s", downloadP8URL));
   }
-  console.log(util2.format("Downloaded file: ", p8DownloadPath));
-  let p8DskPath = "./ProDOS_2_4_2.dsk";
-  fs4.renameSync(p8DownloadPath, p8DskPath);
-  try {
-    d2pDownloadPath = await downloadTool(downloadD2PURL);
-  } catch (exception) {
-    console.log(exception);
-    throw new Error(util2.format("Failed to download dsk2po.py from location ", downloadD2PURL));
-  }
-  console.log(util2.format("Downloaded file: ", d2pDownloadPath));
+  console.log(util2.format("Downloaded file: %s", p8DownloadPath));
+  fs4.renameSync(p8DownloadPath, p8PoPath);
   try {
     const spawnSync = require("child_process").spawnSync;
-    spawnSync("python3", [d2pDownloadPath, p8DskPath]);
-    const cadiusProcess = spawnSync(cadiusExe, ["extractvolume", "ProDOS_2_4_2.po", "."], { encoding: "utf8" });
+    const cadiusProcess = spawnSync(cadiusExe, ["extractvolume", p8PoPath, "."], { encoding: "utf8" });
     console.log(cadiusProcess.stdout);
   } catch (exception) {
     console.log(exception);
