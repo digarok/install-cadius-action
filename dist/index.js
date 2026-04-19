@@ -22973,7 +22973,7 @@ function parseSource(value) {
 async function run() {
   let version = getInput("version");
   if (!version) {
-    version = "0.0.2";
+    version = "v0.0.2";
   }
   const source = parseSource(getInput("source"));
   const customUrl = (getInput("url") || "").trim();
